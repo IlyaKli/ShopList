@@ -1,7 +1,7 @@
 package com.ilya.myapplication.domain
 
 class GetShopListUseCase(private val shopListRepository: ShopListRepository) {
-    fun getShopList() {
-        shopListRepository.getShopList()
+    fun getShopList(): List<ShopItem> {
+        return shopListRepository.getShopList()
     }
 }
