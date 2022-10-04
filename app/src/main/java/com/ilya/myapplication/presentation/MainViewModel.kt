@@ -8,17 +8,17 @@ import com.ilya.myapplication.domain.*
 
 class MainViewModel : ViewModel(){
 
-    val shopListRepository = ShopListRepositoryImpl
+    private val shopListRepository = ShopListRepositoryImpl
 
-    val getShopListUseCase = GetShopListUseCase(shopListRepository)
+    private val getShopListUseCase = GetShopListUseCase(shopListRepository)
 
-    val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
+    private val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
 
-    val removeShopItemUseCase = RemoveShopItemUseCase(shopListRepository)
+    private val removeShopItemUseCase = RemoveShopItemUseCase(shopListRepository)
 
     val shopList = getShopListUseCase.getShopList()
 
-    fun removeShoItem(shopItem: ShopItem) {
+    fun removeShopItem(shopItem: ShopItem) {
         removeShopItemUseCase.removeShopItem(shopItem)
     }
 

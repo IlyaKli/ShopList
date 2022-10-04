@@ -8,14 +8,12 @@ import com.ilya.myapplication.R
 
 class MainActivity : AppCompatActivity() {
 
-    val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
+    private val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.shopList.observe(this) {
-            Log.d("List", it.toString())
-        }
+        viewModel.shopList.observe(this) {}
     }
 }
