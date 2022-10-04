@@ -1,22 +1,18 @@
 package com.ilya.myapplication.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.ilya.myapplication.domain.ShopItem
 import com.ilya.myapplication.domain.ShopListRepository
 
 object ShopListRepositoryImpl: ShopListRepository {
 
-
-
     private val shopList = mutableListOf<ShopItem>()
+
+    private val shopListLD = MutableLiveData<List<ShopItem>>()
 
     private var autoIncrementId = 0
 
-    init {
-        for (i in 0..10) {
-            val shopItem = ShopItem("name $i", i, false)
-            shopList.add(shopItem)
-        }
-    }
 
     override fun editShopItem(shopItem: ShopItem) {
         val oldShopItem = getShopItem(shopItem.id)
@@ -30,6 +26,7 @@ object ShopListRepositoryImpl: ShopListRepository {
 
     override fun removeShopItem(shopItem: ShopItem) {
         shopList.remove(shopItem)
+        updateShopList()
     }
 
     override fun addShopItem(shopItem: ShopItem) {
@@ -37,9 +34,14 @@ object ShopListRepositoryImpl: ShopListRepository {
             shopItem.id = autoIncrementId++
         }
         shopList.add(shopItem)
+        updateShopList()
     }
 
-    override fun getShopList(): List<ShopItem> {
-        return shopList.toList()
+    override fun getShopList(): LiveData<List<ShopItem>> {
+        return shopListLD
+    }
+
+    fun updateShopList() {
+        shopListLD.value = shopList.toList()
     }
 }

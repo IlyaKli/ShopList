@@ -8,8 +8,6 @@ import com.ilya.myapplication.domain.*
 
 class MainViewModel : ViewModel(){
 
-    val shopListLD = MutableLiveData<List<ShopItem>>()
-
     val shopListRepository = ShopListRepositoryImpl
 
     val getShopListUseCase = GetShopListUseCase(shopListRepository)
@@ -18,23 +16,15 @@ class MainViewModel : ViewModel(){
 
     val removeShopItemUseCase = RemoveShopItemUseCase(shopListRepository)
 
-    fun getShopListLD() : LiveData<List<ShopItem>> {
-        return shopListLD
-    }
-
-    fun getShopList() {
-        shopListLD.value = getShopListUseCase.getShopList()
-    }
+    val shopList = getShopListUseCase.getShopList()
 
     fun removeShoItem(shopItem: ShopItem) {
         removeShopItemUseCase.removeShopItem(shopItem)
-        getShopList()
     }
 
     fun editShopList(shopItem: ShopItem) {
         val newItem = shopItem.copy(used = !shopItem.used)
         editShopItemUseCase.editShopItem(newItem)
-        getShopList()
     }
 
 

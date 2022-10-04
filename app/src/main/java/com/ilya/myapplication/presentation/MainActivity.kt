@@ -14,9 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel.getShopList()
-
-        viewModel.getShopListLD().observe(this) {
+        viewModel.shopList.observe(this) {
             Log.d("List", it.toString())
         }
     }
