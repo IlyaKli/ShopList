@@ -1,25 +1,16 @@
 package com.ilya.myapplication.presentation
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.ilya.myapplication.R
 import com.ilya.myapplication.domain.ShopItem
-import kotlinx.android.synthetic.main.enabled_shop_item.view.*
 
-class ShopListAdapter : ListAdapter<ShopItem, ShopListAdapter.ShopListViewHolder>(ShopItemDiffCallback()) {
+class ShopListAdapter : ListAdapter<ShopItem, ShopListViewHolder>(ShopItemDiffCallback()) {
 
     var shopItemLongClickListener: ((shopItem: ShopItem) -> Unit)? = null
 
     var setOnShopItemClickListener: ((shopItem: ShopItem) -> Unit)? = null
-
-    class ShopListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val itemTextView = itemView.shopItemTextView
-
-        val countTextView = itemView.countShopItemTextView
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopListViewHolder {
         val view = when (viewType) {
@@ -60,14 +51,6 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopListAdapter.ShopListViewHolder
             shopItemLongClickListener?.invoke(shopItem)
             true
         }
-    }
-
-    interface OnShopItemClickListener {
-        fun onClick(shopItem: ShopItem)
-    }
-
-    interface OnShopItemLongClickListener {
-        fun onLongClick(shopItem: ShopItem)
     }
 
     companion object {
