@@ -13,6 +13,7 @@
         android:alpha="0.5"
         app:cardBackgroundColor="#29BA2D"
         app:cardElevation="1dp"
+        app:cardCornerRadius="8dp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
