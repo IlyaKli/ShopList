@@ -3,23 +3,17 @@ package com.ilya.myapplication.presentation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ilya.myapplication.R
 import com.ilya.myapplication.domain.ShopItem
 import kotlinx.android.synthetic.main.enabled_shop_item.view.*
 
-class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>() {
+class ShopListAdapter : ListAdapter<ShopItem, ShopListAdapter.ShopListViewHolder>(ShopItemDiffCallback()) {
 
     var shopItemLongClickListener: ((shopItem: ShopItem) -> Unit)? = null
 
     var setOnShopItemClickListener: ((shopItem: ShopItem) -> Unit)? = null
-
-    var shopList = listOf<ShopItem>()
-
-    fun setShoList(shopList: List<ShopItem>) {
-        this.shopList = shopList
-        notifyDataSetChanged()
-    }
 
     class ShopListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val itemTextView = itemView.shopItemTextView
@@ -41,7 +35,7 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>
     }
 
     override fun getItemViewType(position: Int): Int {
-        val shopItem = shopList[position]
+        val shopItem = getItem(position)
 
         val viewType = when (shopItem.used) {
             true -> ENABLED_VIEW
@@ -52,7 +46,7 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>
     }
 
     override fun onBindViewHolder(holder: ShopListViewHolder, position: Int) {
-        var shopItem = shopList[position]
+        var shopItem = getItem(position)
 
         holder.itemTextView.text = shopItem.name
 
@@ -67,11 +61,6 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>
             true
         }
     }
-
-    override fun getItemCount(): Int {
-        return shopList.size
-    }
-
 
     interface OnShopItemClickListener {
         fun onClick(shopItem: ShopItem)
