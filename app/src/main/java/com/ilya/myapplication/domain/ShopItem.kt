@@ -3,7 +3,7 @@ package com.ilya.myapplication.domain
 data class ShopItem(
     val name: String,
     val count: Int,
-    val used: Boolean,
+    var used: Boolean,
     var id: Int = UNDEFINED_ID
 ) {
     companion object {
