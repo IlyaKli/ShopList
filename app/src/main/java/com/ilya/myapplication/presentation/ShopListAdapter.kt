@@ -10,7 +10,9 @@ import kotlinx.android.synthetic.main.enabled_shop_item.view.*
 
 class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>() {
 
-    var shopItemLongClickListener: OnShopItemLongClickListener? = null
+    var shopItemLongClickListener: ((shopItem: ShopItem) -> Unit)? = null
+
+    var setOnShopItemClickListener: ((shopItem: ShopItem) -> Unit)? = null
 
     var shopList = listOf<ShopItem>()
 
@@ -56,14 +58,23 @@ class ShopListAdapter : RecyclerView.Adapter<ShopListAdapter.ShopListViewHolder>
 
         holder.countTextView.text = shopItem.count.toString()
 
+        holder.itemView.setOnClickListener {
+            setOnShopItemClickListener?.invoke(shopItem)
+        }
+
         holder.itemView.setOnLongClickListener {
-            shopItemLongClickListener?.onLongClick(shopItem)
+            shopItemLongClickListener?.invoke(shopItem)
             true
         }
     }
 
     override fun getItemCount(): Int {
         return shopList.size
+    }
+
+
+    interface OnShopItemClickListener {
+        fun onClick(shopItem: ShopItem)
     }
 
     interface OnShopItemLongClickListener {
