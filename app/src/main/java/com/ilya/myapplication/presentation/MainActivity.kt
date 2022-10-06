@@ -1,14 +1,11 @@
 package com.ilya.myapplication.presentation
 
-import android.media.browse.MediaBrowser
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ilya.myapplication.R
-import com.ilya.myapplication.domain.ShopItem
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity() : AppCompatActivity() {
@@ -22,8 +19,21 @@ class MainActivity() : AppCompatActivity() {
 
         setRecyclerView()
 
+        setOnButtonClickListener()
+
+        observerMainVM()
+    }
+
+    private fun observerMainVM() {
         viewModel.shopList.observe(this) {
             shopListAdapter.submitList(it)
+        }
+    }
+
+    private fun setOnButtonClickListener() {
+        addShopItemButton.setOnClickListener {
+            val intent = ShopItemActivity.newIntentAdd(this)
+            startActivity(intent)
         }
     }
 
@@ -35,7 +45,8 @@ class MainActivity() : AppCompatActivity() {
 
     private fun setOnItemClickListener() {
         shopListAdapter.setOnShopItemClickListener = {
-            Log.d("InfShopItem", it.toString())
+            val intent = ShopItemActivity.newIntentEdit(this, it.id)
+            startActivity(intent)
         }
     }
 
@@ -61,7 +72,7 @@ class MainActivity() : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(shopItemListRecyclerView)
     }
 
-    fun setRecyclerView() {
+    private fun setRecyclerView() {
         shopItemListRecyclerView.adapter = shopListAdapter
         shopItemListRecyclerView.recycledViewPool.setMaxRecycledViews(ShopListAdapter.ENABLED_VIEW,
             ShopListAdapter.MAX_POOL_SIZE)

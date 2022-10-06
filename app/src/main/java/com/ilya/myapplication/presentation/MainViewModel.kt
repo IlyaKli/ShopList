@@ -1,10 +1,11 @@
 package com.ilya.myapplication.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ilya.myapplication.data.ShopListRepositoryImpl
-import com.ilya.myapplication.domain.*
+import com.ilya.myapplication.domain.EditShopItemUseCase
+import com.ilya.myapplication.domain.GetShopListUseCase
+import com.ilya.myapplication.domain.RemoveShopItemUseCase
+import com.ilya.myapplication.domain.ShopItem
 
 class MainViewModel : ViewModel(){
 

@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ilya.myapplication.domain.ShopItem
 import com.ilya.myapplication.domain.ShopListRepository
-import java.util.*
-import kotlin.Comparator
 
 object ShopListRepositoryImpl: ShopListRepository {
 
@@ -16,7 +14,7 @@ object ShopListRepositoryImpl: ShopListRepository {
     private var autoIncrementId = 0
 
     init {
-        for (i in 0..100) {
+        for (i in 0..10) {
             val shopItem = ShopItem("name $i", i, true)
             addShopItem(shopItem)
         }

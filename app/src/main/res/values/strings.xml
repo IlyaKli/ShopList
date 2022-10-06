@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Shop list</string>
+    <string name="error_input_name">Введите название</string>
+    <string name="error_input_count">Введите количество</string>
+    <string name="shop_item_tools_text">Назание</string>
+    <string name="shop_item_count_tools_text">5</string>
+    <string name="name_hint_edit_text">Название:</string>
+    <string name="count_hint_edit_text">Количество:</string>
 </resources>
