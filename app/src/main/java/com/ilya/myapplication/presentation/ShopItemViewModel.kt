@@ -1,5 +1,7 @@
 package com.ilya.myapplication.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ilya.myapplication.data.ShopListRepositoryImpl
 import com.ilya.myapplication.domain.AddShopItemUseCase
@@ -17,8 +19,26 @@ class ShopItemViewModel : ViewModel() {
 
     val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
 
+    private val _errorInputName = MutableLiveData<Boolean>()
+    val errorInputName: LiveData<Boolean>
+        get() = _errorInputName
+
+    private val _errorInputCount = MutableLiveData<Boolean>()
+    val errorInputCount: LiveData<Boolean>
+        get() = _errorInputCount
+
+    private val _shopItem = MutableLiveData<ShopItem>()
+    val shopItem: LiveData<ShopItem>
+        get() = _shopItem
+
+    private val _isLoad = MutableLiveData<Unit>()
+    val isLoad: LiveData<Unit>
+        get() = _isLoad
+
     fun getShopItem(shopItemId: Int) {
-        val item = getShopItemUseCase.getShopItem(shopItemId)
+        val item: ShopItem = getShopItemUseCase.getShopItem(shopItemId)
+        _shopItem.value = item
+        finishWork()
     }
 
     fun addShopItem(inputName: String?, inputCount: String?) {
@@ -26,22 +46,25 @@ class ShopItemViewModel : ViewModel() {
         val count = parseCount(inputCount)
         val fieldsValid = validateInput(name, count)
         if (fieldsValid) {
-            val shopItem = ShopItem(name, count, true)
-            addShopItemUseCase.addShopItem(shopItem)
+            _shopItem.value?.let {
+                val item = it.copy(name = name, count = count)
+                addShopItemUseCase.addShopItem(item)
+                finishWork()
+            }
         }
     }
 
-//    fun editShopItem(name: String?, count: String?, id: Int) {
-//        val name = parseName(name)
-//        val count = parseCount(count)
-//        val fieldsValid = validateInput(name, count)
-//    }
+    fun editShopItem(name: String?, count: String?, id: Int) {
+        val name = parseName(name)
+        val count = parseCount(count)
+        val fieldsValid = validateInput(name, count)
+    }
 
-    fun parseName(inputName: String?) : String {
+    private fun parseName(inputName: String?) : String {
         return inputName?.trim() ?: ""
     }
 
-    fun parseCount(inputCount: String?) : Int {
+    private fun parseCount(inputCount: String?) : Int {
         return try {
             inputCount?.toInt() ?: 0
         } catch (e: Exception) {
@@ -49,16 +72,28 @@ class ShopItemViewModel : ViewModel() {
         }
     }
 
-    fun validateInput(name: String, count: Int): Boolean {
+    private fun validateInput(name: String, count: Int): Boolean {
         var result = true
         if (name.isBlank()) {
-            //TODO: show error input name
+            _errorInputName.value = true
             result = false
         }
         if (count <= 0) {
-            //TODO: show error input count
+            _errorInputCount.value = true
             result = false
         }
         return result
+    }
+
+    fun resetErrorInputName() {
+        _errorInputName.value = false
+    }
+
+    fun resetErrorInputCount() {
+        _errorInputCount.value = false
+    }
+
+    private fun finishWork() {
+        _isLoad.value = Unit
     }
 }
