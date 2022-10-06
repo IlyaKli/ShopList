@@ -11,16 +11,54 @@ class ShopItemViewModel : ViewModel() {
 
     private val shopListRepository = ShopListRepositoryImpl
 
+    val getShopItemUseCase = GetShopItemUseCase(shopListRepository)
+
     val addShopItemUseCase = AddShopItemUseCase(shopListRepository)
 
     val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
 
-    fun addShopItem(name: String, count: Int) {
-        val shopItem = ShopItem(name, count, true)
-        addShopItemUseCase.addShopItem(shopItem)
+    fun getShopItem(shopItemId: Int) {
+        val item = getShopItemUseCase.getShopItem(shopItemId)
     }
 
-    fun editShopItem(name: String, count: Int, used: Boolean, id: Int) {
-        editShopItemUseCase.editShopItem(ShopItem(name, count, used, id))
+    fun addShopItem(inputName: String?, inputCount: String?) {
+        val name = parseName(inputName)
+        val count = parseCount(inputCount)
+        val fieldsValid = validateInput(name, count)
+        if (fieldsValid) {
+            val shopItem = ShopItem(name, count, true)
+            addShopItemUseCase.addShopItem(shopItem)
+        }
+    }
+
+//    fun editShopItem(name: String?, count: String?, id: Int) {
+//        val name = parseName(name)
+//        val count = parseCount(count)
+//        val fieldsValid = validateInput(name, count)
+//    }
+
+    fun parseName(inputName: String?) : String {
+        return inputName?.trim() ?: ""
+    }
+
+    fun parseCount(inputCount: String?) : Int {
+        return try {
+            inputCount?.toInt() ?: 0
+        } catch (e: Exception) {
+            0
+        }
+    }
+
+    fun validateInput(name: String, count: Int): Boolean {
+        var result = true
+        if (name.isBlank()) {
+            //TODO: show error input name
+            result = false
+        }
+        if (count <= 0) {
+            //TODO: show error input count
+            result = false
+        }
+        return result
     }
 }
