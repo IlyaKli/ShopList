@@ -32,7 +32,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Shop item" />
+                tools:text="@string/shop_item_tools_text" />
 
             <TextView
                 android:id="@+id/countShopItemTextView"
@@ -44,7 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="5" />
+                tools:text="@string/shop_item_count_tools_text" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

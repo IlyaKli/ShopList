@@ -37,7 +37,7 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopListViewHolder>(ShopItemDiffCa
     }
 
     override fun onBindViewHolder(holder: ShopListViewHolder, position: Int) {
-        var shopItem = getItem(position)
+        val shopItem = getItem(position)
 
         holder.itemTextView.text = shopItem.name
 
