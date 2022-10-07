@@ -2,6 +2,7 @@ package com.ilya.myapplication.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,18 @@ class MainActivity() : AppCompatActivity() {
         observerMainVM()
     }
 
+    private fun isHorizontalOrientation(): Boolean {
+        return shopItemContainer != null
+    }
+
+    private fun launchFragment(fragment: Fragment) {
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.shopItemContainer, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
     private fun observerMainVM() {
         viewModel.shopList.observe(this) {
             shopListAdapter.submitList(it)
@@ -32,8 +45,12 @@ class MainActivity() : AppCompatActivity() {
 
     private fun setOnButtonClickListener() {
         addShopItemButton.setOnClickListener {
-            val intent = ShopItemActivity.newIntentAdd(this)
-            startActivity(intent)
+            if (isHorizontalOrientation()) {
+                launchFragment(ShopItemFragment.newInstanceAddMode())
+            } else {
+                val intent = ShopItemActivity.newIntentAdd(this)
+                startActivity(intent)
+            }
         }
     }
 
@@ -45,8 +62,12 @@ class MainActivity() : AppCompatActivity() {
 
     private fun setOnItemClickListener() {
         shopListAdapter.setOnShopItemClickListener = {
-            val intent = ShopItemActivity.newIntentEdit(this, it.id)
-            startActivity(intent)
+            if (isHorizontalOrientation()) {
+                launchFragment(ShopItemFragment.newInstanceEditMode(it.id))
+            } else {
+                val intent = ShopItemActivity.newIntentEdit(this, it.id)
+                startActivity(intent)
+            }
         }
     }
 
