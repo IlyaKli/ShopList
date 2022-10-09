@@ -1,5 +1,6 @@
 package com.ilya.myapplication.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +17,8 @@ class ShopItemFragment : Fragment() {
 
     val shopItemViewModel by lazy { ViewModelProvider(this)[ShopItemViewModel::class.java] }
 
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
+
     private var screenMode = UNKNOWN_MODE
 
     private var shopItemId = ShopItem.UNDEFINED_ID
@@ -23,6 +26,15 @@ class ShopItemFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parsArgs()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnEditingFinishedListener) {
+            onEditingFinishedListener = context
+        } else {
+            throw RuntimeException("Activity must implement OnEditingFinishedListener")
+        }
     }
 
     override fun onCreateView(
@@ -97,7 +109,7 @@ class ShopItemFragment : Fragment() {
 
     private fun observerOnSIViewModel() {
         shopItemViewModel.isLoad.observe(viewLifecycleOwner) {
-            activity?.onBackPressed()
+            onEditingFinishedListener.onEditingFinished()
         }
 
         shopItemViewModel.errorInputName.observe(viewLifecycleOwner) {
@@ -141,6 +153,10 @@ class ShopItemFragment : Fragment() {
             nameTextInputEditText.setText(it?.name)
             countTextInputEditText.setText(it?.count.toString())
         }
+    }
+
+    interface OnEditingFinishedListener {
+        fun onEditingFinished()
     }
 
     companion object {
