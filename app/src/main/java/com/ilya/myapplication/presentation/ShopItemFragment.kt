@@ -143,6 +143,10 @@ class ShopItemFragment : Fragment() {
         }
     }
 
+    interface OnEditingFinishedListener {
+
+    }
+
     companion object {
         const val SCREEN_MODE = "screen_mode"
 
