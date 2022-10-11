@@ -1,6 +1,7 @@
 package com.ilya.myapplication.presentation
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ilya.myapplication.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity() : AppCompatActivity() {
+class MainActivity() : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
     private val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
     private val shopListAdapter by lazy { ShopListAdapter() }
@@ -105,5 +106,10 @@ class MainActivity() : AppCompatActivity() {
         setOnItemClickListener()
 
         setOnItemLongClickListener()
+    }
+
+    override fun onEditingFinished() {
+        Toast.makeText(this, "Ready", Toast.LENGTH_SHORT).show()
+        supportFragmentManager.popBackStack()
     }
 }
