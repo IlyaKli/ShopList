@@ -116,4 +116,9 @@ class MainActivity() : AppCompatActivity(), ShopItemFragment.OnEditingFinishedLi
 
         setOnItemLongClickListener()
     }
+
+    override fun onEditingFinished() {
+        Toast.makeText(this, "Ready", Toast.LENGTH_SHORT).show()
+        supportFragmentManager.popBackStack()
+    }
 }

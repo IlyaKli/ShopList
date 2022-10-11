@@ -13,11 +13,11 @@ class ShopItemViewModel : ViewModel() {
 
     private val shopListRepository = ShopListRepositoryImpl
 
-    val getShopItemUseCase = GetShopItemUseCase(shopListRepository)
+    private val getShopItemUseCase = GetShopItemUseCase(shopListRepository)
 
-    val addShopItemUseCase = AddShopItemUseCase(shopListRepository)
+    private val addShopItemUseCase = AddShopItemUseCase(shopListRepository)
 
-    val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
+    private val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
 
     private val _errorInputName = MutableLiveData<Boolean>()
     val errorInputName: LiveData<Boolean>
