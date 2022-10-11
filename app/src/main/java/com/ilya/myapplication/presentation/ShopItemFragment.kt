@@ -1,5 +1,6 @@
 package com.ilya.myapplication.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,6 +20,17 @@ class ShopItemFragment : Fragment() {
     private var screenMode = UNKNOWN_MODE
 
     private var shopItemId = ShopItem.UNDEFINED_ID
+
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnEditingFinishedListener) {
+            onEditingFinishedListener = context
+        } else {
+            throw RuntimeException("Activity doesn't implement interface OnEditingFinishedListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,7 +109,7 @@ class ShopItemFragment : Fragment() {
 
     private fun observerOnSIViewModel() {
         shopItemViewModel.isLoad.observe(viewLifecycleOwner) {
-            activity?.onBackPressed()
+            onEditingFinishedListener.onEditingFinished()
         }
 
         shopItemViewModel.errorInputName.observe(viewLifecycleOwner) {
@@ -144,7 +156,7 @@ class ShopItemFragment : Fragment() {
     }
 
     interface OnEditingFinishedListener {
-
+        fun onEditingFinished()
     }
 
     companion object {

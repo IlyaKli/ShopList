@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.ilya.myapplication.R
 import com.ilya.myapplication.domain.ShopItem
 
-class ShopItemActivity : AppCompatActivity() {
+class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
     private var screenMode = UNKNOWN_MODE
 
@@ -18,6 +18,10 @@ class ShopItemActivity : AppCompatActivity() {
         setContentView(R.layout.activity_shop_item)
         parseIntent()
         if (savedInstanceState == null) launchRightMode()
+    }
+
+    override fun onEditingFinished() {
+        finish()
     }
 
     private fun launchRightMode() {
