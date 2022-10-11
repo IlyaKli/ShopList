@@ -44,6 +44,15 @@ class MainActivity() : AppCompatActivity(), ShopItemFragment.OnEditingFinishedLi
         }
     }
 
+    override fun onEditingFinished() {
+        Toast.makeText(
+            this@MainActivity,
+            "Готово",
+            Toast.LENGTH_SHORT
+        ).show()
+        supportFragmentManager.popBackStack()
+    }
+
     private fun setOnButtonClickListener() {
         addShopItemButton.setOnClickListener {
             if (isHorizontalOrientation()) {
