@@ -65,7 +65,7 @@ class ShopItemViewModel : ViewModel() {
     }
 
     private fun parseName(inputName: String?): String {
-        return inputName?.trim() ?: ""
+        return ""
     }
 
     private fun parseCount(inputCount: String?): Int {

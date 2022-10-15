@@ -2,8 +2,12 @@ package com.ilya.myapplication.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import com.ilya.myapplication.R
+import com.ilya.myapplication.databinding.DisabledShopItemBinding
+import com.ilya.myapplication.databinding.EnabledShopItemBinding
 import com.ilya.myapplication.domain.ShopItem
 
 class ShopListAdapter : ListAdapter<ShopItem, ShopListViewHolder>(ShopItemDiffCallback()) {
@@ -13,16 +17,18 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopListViewHolder>(ShopItemDiffCa
     var setOnShopItemClickListener: ((shopItem: ShopItem) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopListViewHolder {
-        val view = when (viewType) {
-            ENABLED_VIEW -> LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.enabled_shop_item, parent, false)
-            DISABLED_VIEW -> LayoutInflater
-                .from(parent.context)
-                .inflate(R.layout.disabled_shop_item, parent, false)
+        val layout = when (viewType) {
+            ENABLED_VIEW -> R.layout.enabled_shop_item
+            DISABLED_VIEW -> R.layout.disabled_shop_item
             else -> throw RuntimeException("Unknown view type")
         }
-        return ShopListViewHolder(view)
+        val binding = DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
+            layout,
+            parent,
+            false
+        )
+        return ShopListViewHolder(binding)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -38,16 +44,24 @@ class ShopListAdapter : ListAdapter<ShopItem, ShopListViewHolder>(ShopItemDiffCa
 
     override fun onBindViewHolder(holder: ShopListViewHolder, position: Int) {
         val shopItem = getItem(position)
+        val binding = holder.binding
 
-        holder.itemTextView.text = shopItem.name
+        when (binding) {
+            is EnabledShopItemBinding -> {
+                binding.shopItemTextView.text = shopItem.name
+                binding.countShopItemTextView.text = shopItem.count.toString()
+            }
+            is DisabledShopItemBinding -> {
+                binding.shopItemTextView.text = shopItem.name
+                binding.countShopItemTextView.text = shopItem.count.toString()
+            }
+        }
 
-        holder.countTextView.text = shopItem.count.toString()
-
-        holder.itemView.setOnClickListener {
+        binding.root.setOnClickListener {
             setOnShopItemClickListener?.invoke(shopItem)
         }
 
-        holder.itemView.setOnLongClickListener {
+        binding.root.setOnLongClickListener {
             shopItemLongClickListener?.invoke(shopItem)
             true
         }

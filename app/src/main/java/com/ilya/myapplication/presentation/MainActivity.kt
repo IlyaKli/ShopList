@@ -8,16 +8,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.ilya.myapplication.R
+import com.ilya.myapplication.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity() : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
     private val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
     private val shopListAdapter by lazy { ShopListAdapter() }
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         setRecyclerView()
 
@@ -27,7 +29,7 @@ class MainActivity() : AppCompatActivity(), ShopItemFragment.OnEditingFinishedLi
     }
 
     private fun isHorizontalOrientation(): Boolean {
-        return shopItemContainer != null
+        return binding.shopItemContainer != null
     }
 
     private fun launchFragment(fragment: Fragment) {
@@ -45,7 +47,7 @@ class MainActivity() : AppCompatActivity(), ShopItemFragment.OnEditingFinishedLi
     }
 
     private fun setOnButtonClickListener() {
-        addShopItemButton.setOnClickListener {
+        binding.addShopItemButton.setOnClickListener {
             if (isHorizontalOrientation()) {
                 launchFragment(ShopItemFragment.newInstanceAddMode())
             } else {
@@ -95,10 +97,10 @@ class MainActivity() : AppCompatActivity(), ShopItemFragment.OnEditingFinishedLi
     }
 
     private fun setRecyclerView() {
-        shopItemListRecyclerView.adapter = shopListAdapter
-        shopItemListRecyclerView.recycledViewPool.setMaxRecycledViews(ShopListAdapter.ENABLED_VIEW,
+        binding.shopItemListRecyclerView.adapter = shopListAdapter
+        binding.shopItemListRecyclerView.recycledViewPool.setMaxRecycledViews(ShopListAdapter.ENABLED_VIEW,
             ShopListAdapter.MAX_POOL_SIZE)
-        shopItemListRecyclerView.recycledViewPool.setMaxRecycledViews(ShopListAdapter.DISABLED_VIEW,
+        binding.shopItemListRecyclerView.recycledViewPool.setMaxRecycledViews(ShopListAdapter.DISABLED_VIEW,
             ShopListAdapter.MAX_POOL_SIZE)
 
         setSwipedListener()
