@@ -31,7 +31,7 @@
                 android:id="@+id/nameTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{String.valueOf(viewModel.shopItem.name)}"
+                app:name="@{viewModel.shopItem.name}"
                 android:hint="@string/name_hint_edit_text"
                 android:inputType="textCapWords" />
 
