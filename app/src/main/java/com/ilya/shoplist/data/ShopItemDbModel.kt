@@ -1,4 +1,4 @@
-package com.ilya.myapplication.data
+package com.ilya.shoplist.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,6 +10,4 @@ data class ShopItemDbModel(
     val name: String,
     val count: Int,
     var used: Boolean
-) {
-
-}
+)

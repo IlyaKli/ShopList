@@ -1,15 +1,15 @@
-package com.ilya.myapplication.presentation
+package com.ilya.shoplist.presentation
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ilya.myapplication.data.ShopListRepositoryImpl
-import com.ilya.myapplication.domain.AddShopItemUseCase
-import com.ilya.myapplication.domain.EditShopItemUseCase
-import com.ilya.myapplication.domain.GetShopItemUseCase
-import com.ilya.myapplication.domain.ShopItem
+import com.ilya.shoplist.data.ShopListRepositoryImpl
+import com.ilya.shoplist.domain.AddShopItemUseCase
+import com.ilya.shoplist.domain.EditShopItemUseCase
+import com.ilya.shoplist.domain.GetShopItemUseCase
+import com.ilya.shoplist.domain.ShopItem
 import kotlinx.coroutines.launch
 
 class ShopItemViewModel(application: Application) : AndroidViewModel(application) {

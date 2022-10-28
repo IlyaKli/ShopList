@@ -1,4 +1,4 @@
-package com.ilya.myapplication.data
+package com.ilya.shoplist.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

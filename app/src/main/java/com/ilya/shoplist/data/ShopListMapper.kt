@@ -1,6 +1,6 @@
-package com.ilya.myapplication.data
+package com.ilya.shoplist.data
 
-import com.ilya.myapplication.domain.ShopItem
+import com.ilya.shoplist.domain.ShopItem
 
 class ShopListMapper {
 

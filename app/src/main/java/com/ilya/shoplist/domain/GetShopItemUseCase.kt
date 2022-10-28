@@ -1,4 +1,4 @@
-package com.ilya.myapplication.domain
+package com.ilya.shoplist.domain
 
 class GetShopItemUseCase(private val shopListRepository: ShopListRepository) {
     suspend fun getShopItem(shopItemId: Int): ShopItem {

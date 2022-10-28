@@ -1,4 +1,4 @@
-package com.ilya.myapplication.presentation
+package com.ilya.shoplist.presentation
 
 import android.os.Bundle
 import android.widget.Toast
@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.ilya.myapplication.R
-import com.ilya.myapplication.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import shoplist.R
+import shoplist.databinding.ActivityMainBinding
 
 class MainActivity() : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 

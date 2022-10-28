@@ -1,4 +1,4 @@
-package com.ilya.myapplication.data
+package com.ilya.shoplist.data
 
 import android.app.Application
 import androidx.room.Database

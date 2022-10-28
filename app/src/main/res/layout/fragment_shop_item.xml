@@ -3,7 +3,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.ilya.myapplication.presentation.ShopItemViewModel" />
+            type="com.ilya.shoplist.presentation.ShopItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="Сохранить"
+            android:text="@string/save_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

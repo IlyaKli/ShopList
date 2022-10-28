@@ -1,10 +1,10 @@
-package com.ilya.myapplication.data
+package com.ilya.shoplist.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.ilya.myapplication.domain.ShopItem
-import com.ilya.myapplication.domain.ShopListRepository
+import com.ilya.shoplist.domain.ShopItem
+import com.ilya.shoplist.domain.ShopListRepository
 
 class ShopListRepositoryImpl(application: Application): ShopListRepository {
 

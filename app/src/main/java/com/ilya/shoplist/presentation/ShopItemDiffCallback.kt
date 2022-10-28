@@ -1,7 +1,7 @@
-package com.ilya.myapplication.presentation
+package com.ilya.shoplist.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-import com.ilya.myapplication.domain.ShopItem
+import com.ilya.shoplist.domain.ShopItem
 
 class ShopItemDiffCallback : DiffUtil.ItemCallback<ShopItem>() {
 
