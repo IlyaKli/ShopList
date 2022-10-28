@@ -1,14 +1,14 @@
-package com.ilya.myapplication.presentation
+package com.ilya.shoplist.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
-import com.ilya.myapplication.R
-import com.ilya.myapplication.databinding.DisabledShopItemBinding
-import com.ilya.myapplication.databinding.EnabledShopItemBinding
-import com.ilya.myapplication.domain.ShopItem
+import com.ilya.shoplist.domain.ShopItem
+import shoplist.R
+import shoplist.databinding.DisabledShopItemBinding
+import shoplist.databinding.EnabledShopItemBinding
 
 class ShopListAdapter : ListAdapter<ShopItem, ShopListViewHolder>(ShopItemDiffCallback()) {
 

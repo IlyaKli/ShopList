@@ -1,4 +1,4 @@
-package com.ilya.myapplication
+package com.ilya.shoplist
 
 import org.junit.Test
 

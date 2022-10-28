@@ -1,4 +1,4 @@
-package com.ilya.myapplication.domain
+package com.ilya.shoplist.domain
 
 import androidx.lifecycle.LiveData
 

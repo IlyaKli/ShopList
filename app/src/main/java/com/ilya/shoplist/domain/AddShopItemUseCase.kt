@@ -1,4 +1,4 @@
-package com.ilya.myapplication.domain
+package com.ilya.shoplist.domain
 
 class AddShopItemUseCase(private val shopListRepository: ShopListRepository) {
     suspend fun addShopItem(shopItem: ShopItem) {

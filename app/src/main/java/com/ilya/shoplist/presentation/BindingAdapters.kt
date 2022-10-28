@@ -1,9 +1,9 @@
-package com.ilya.myapplication.presentation
+package com.ilya.shoplist.presentation
 
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.ilya.myapplication.R
+import shoplist.R
 
 @BindingAdapter("errorInputName")
 fun bindErrorInputName(textInputLayout: TextInputLayout, isError: Boolean) {

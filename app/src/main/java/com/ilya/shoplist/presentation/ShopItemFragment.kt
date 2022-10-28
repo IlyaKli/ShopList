@@ -1,4 +1,4 @@
-package com.ilya.myapplication.presentation
+package com.ilya.shoplist.presentation
 
 import android.content.Context
 import android.os.Bundle
@@ -9,10 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.ilya.myapplication.R
-import com.ilya.myapplication.databinding.FragmentShopItemBinding
-import com.ilya.myapplication.domain.ShopItem
+import com.ilya.shoplist.domain.ShopItem
 import kotlinx.android.synthetic.main.fragment_shop_item.*
+import shoplist.databinding.FragmentShopItemBinding
 
 class ShopItemFragment : Fragment() {
 
