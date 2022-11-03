@@ -1,7 +1,7 @@
 # ShopList - is an application that helps you structure your shopping list.
 The application has the ability to add a product and change notes. You can also mark a note as inactive.
 
-# Stack - Clean Architecture, MVVM, Coroutines, Room, Data Binding, Fragment
+# Stack - Clean Architecture, DI - Dagger 2, MVVM, Coroutines, Room, Data Binding, Fragment
 
 # Shop list - main screen
 
