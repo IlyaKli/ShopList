@@ -1,24 +1,19 @@
 package com.ilya.shoplist.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ilya.shoplist.data.ShopListRepositoryImpl
 import com.ilya.shoplist.domain.EditShopItemUseCase
 import com.ilya.shoplist.domain.GetShopListUseCase
 import com.ilya.shoplist.domain.RemoveShopItemUseCase
 import com.ilya.shoplist.domain.ShopItem
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val shopListRepository = ShopListRepositoryImpl(application)
-
-    private val getShopListUseCase = GetShopListUseCase(shopListRepository)
-
-    private val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
-
-    private val removeShopItemUseCase = RemoveShopItemUseCase(shopListRepository)
+class MainViewModel @Inject constructor(
+    private val getShopListUseCase: GetShopListUseCase,
+    private val editShopItemUseCase: EditShopItemUseCase,
+    private val removeShopItemUseCase: RemoveShopItemUseCase
+) : ViewModel() {
 
     val shopList = getShopListUseCase.getShopList()
 
