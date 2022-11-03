@@ -9,13 +9,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.ilya.shoplist.data.di.DaggerApplicationComponent
+import com.ilya.shoplist.databinding.FragmentShopItemBinding
 import com.ilya.shoplist.domain.ShopItem
 import kotlinx.android.synthetic.main.fragment_shop_item.*
-import shoplist.databinding.FragmentShopItemBinding
+import javax.inject.Inject
 
 class ShopItemFragment : Fragment() {
 
-    val shopItemViewModel by lazy { ViewModelProvider(this)[ShopItemViewModel::class.java] }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val component by lazy { (requireActivity().application as ShopApplication).component  }
+
+    val shopItemViewModel by lazy { ViewModelProvider(this, viewModelFactory)[ShopItemViewModel::class.java] }
 
     private var _binding: FragmentShopItemBinding? = null
     private val binding: FragmentShopItemBinding
@@ -28,6 +35,7 @@ class ShopItemFragment : Fragment() {
     private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
     override fun onAttach(context: Context) {
+        component.inject(this)
         super.onAttach(context)
         if (context is OnEditingFinishedListener) {
             onEditingFinishedListener = context

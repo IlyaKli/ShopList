@@ -7,17 +7,27 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.ilya.shoplist.R
+import com.ilya.shoplist.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
-import shoplist.R
-import shoplist.databinding.ActivityMainBinding
+import javax.inject.Inject
 
-class MainActivity() : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
+class MainActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 
-    private val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private val component by lazy {
+        (application as ShopApplication).component
+    }
+
+    private val viewModel by lazy { ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java] }
+
     private val shopListAdapter by lazy { ShopListAdapter() }
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 

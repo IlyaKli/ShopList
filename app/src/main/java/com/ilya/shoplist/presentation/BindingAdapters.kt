@@ -3,7 +3,7 @@ package com.ilya.shoplist.presentation
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import shoplist.R
+import com.ilya.shoplist.R
 
 @BindingAdapter("errorInputName")
 fun bindErrorInputName(textInputLayout: TextInputLayout, isError: Boolean) {

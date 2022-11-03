@@ -1,26 +1,19 @@
 package com.ilya.shoplist.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.ilya.shoplist.data.ShopListRepositoryImpl
 import com.ilya.shoplist.domain.AddShopItemUseCase
 import com.ilya.shoplist.domain.EditShopItemUseCase
 import com.ilya.shoplist.domain.GetShopItemUseCase
 import com.ilya.shoplist.domain.ShopItem
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ShopItemViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val shopListRepository = ShopListRepositoryImpl(application)
-
-    private val getShopItemUseCase = GetShopItemUseCase(shopListRepository)
-
-    private val addShopItemUseCase = AddShopItemUseCase(shopListRepository)
-
-    private val editShopItemUseCase = EditShopItemUseCase(shopListRepository)
+class ShopItemViewModel @Inject constructor(
+    private val getShopItemUseCase: GetShopItemUseCase,
+    private val addShopItemUseCase: AddShopItemUseCase,
+    private val editShopItemUseCase: EditShopItemUseCase,
+) : ViewModel() {
 
     private val _errorInputName = MutableLiveData<Boolean>()
     val errorInputName: LiveData<Boolean>
@@ -46,11 +39,11 @@ class ShopItemViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun addShopItem(inputName: String?, inputCount: String?) {
-            val name = parseName(inputName)
-            val count = parseCount(inputCount)
-            val fieldsValid = validateInput(name, count)
-            if (fieldsValid) {
-                viewModelScope.launch {
+        val name = parseName(inputName)
+        val count = parseCount(inputCount)
+        val fieldsValid = validateInput(name, count)
+        if (fieldsValid) {
+            viewModelScope.launch {
                 val shopItem = ShopItem(name, count, true)
                 addShopItemUseCase.addShopItem(shopItem)
                 finishWork()
@@ -59,12 +52,12 @@ class ShopItemViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun editShopItem(name: String?, count: String?) {
-            val name = parseName(name)
-            val count = parseCount(count)
-            val fieldsValid = validateInput(name, count)
-            if (fieldsValid) {
-                _shopItem.value?.let {
-                    viewModelScope.launch {
+        val name = parseName(name)
+        val count = parseCount(count)
+        val fieldsValid = validateInput(name, count)
+        if (fieldsValid) {
+            _shopItem.value?.let {
+                viewModelScope.launch {
                     val item = it.copy(name = name, count = count)
                     editShopItemUseCase.editShopItem(item)
                     finishWork()
